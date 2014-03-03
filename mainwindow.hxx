@@ -2,6 +2,7 @@
 #define MAINWINDOW_HXX
 
 #include <QMainWindow>
+#include <QMimeData>
 #include <QUrl>
 #include <QFile>
 #include <QFileDialog>
