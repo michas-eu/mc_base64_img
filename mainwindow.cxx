@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	connect(&this->b64_encoder_thred,SIGNAL(result_ready(QString)),this,SLOT(set_converted_tbl(QString)));
+	connect(&this->b64_decoder_thred,SIGNAL(result_ready(QPixmap)),this,SLOT(set_decoded_img(QPixmap)));
 	ui->setupUi(this);
 	setAcceptDrops(true);
 }
@@ -73,9 +74,17 @@ void MainWindow::set_converted_tbl(QString s) {
 
 void MainWindow::on_btn_convert_clicked()
 {
-	QByteArray in = ui->base64_input->toPlainText().toLatin1();
-	b64_conv bx(in);
-	QPixmap img = bx.get_image();
+	if (this->b64_decoder_thred.isRunning()) {
+		this->b64_decoder_thred.terminate();
+	}
+	ui->img_box->setPixmap(QPixmap());
+	QString in = ui->base64_input->toPlainText();
+	this->b64_decoder_thred.input = in;
+	this->b64_decoder_thred.start();
+}
+
+void MainWindow::set_decoded_img(QPixmap img)
+{
 	if (img.isNull()) {
 		ui->base64_input->setPlainText("Wrong input");
 	} else {

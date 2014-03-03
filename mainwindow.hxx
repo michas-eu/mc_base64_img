@@ -8,7 +8,7 @@
 #include <QFileDialog>
 
 #include "b64_encoder.hxx"
-#include "b64_conv.hxx"
+#include "b64_decoder.hxx"
 
 namespace Ui {
 class MainWindow;
@@ -28,10 +28,12 @@ private slots:
 	void on_btn_open_clicked();
 	void on_btn_convert_clicked();
 	void set_converted_tbl(QString s);
+	void set_decoded_img(QPixmap img);
 
 private:
 	Ui::MainWindow *ui;
 	b64_encoder b64_encoder_thred;
+	b64_decoder b64_decoder_thred;
 
 protected:
 	void open(QString fn);
