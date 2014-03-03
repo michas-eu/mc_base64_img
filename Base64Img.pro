@@ -11,8 +11,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cxx\
-        mainwindow.cxx
+        mainwindow.cxx\
+        b64_conv.cxx
 
-HEADERS  += mainwindow.hxx
+HEADERS  += mainwindow.hxx\
+        b64_conv.hxx
 
 FORMS    += mainwindow.ui

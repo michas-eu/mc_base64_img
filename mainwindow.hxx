@@ -7,6 +7,8 @@
 #include <QFile>
 #include <QFileDialog>
 
+#include "b64_conv.hxx"
+
 namespace Ui {
 class MainWindow;
 }
@@ -23,6 +25,7 @@ public:
 	
 private slots:
 	void on_btn_open_clicked();
+	void on_btn_convert_clicked();
 
 private:
 	Ui::MainWindow *ui;

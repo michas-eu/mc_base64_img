@@ -20,14 +20,6 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *ev)
 	ev->acceptProposedAction();
 }
 
-/*void MainWindow::on_bin2base_clicked()
-{
-	QByteArray in = ui->input_bin->toPlainText().toUtf8();
-	QByteArray out = in.toBase64();
-	QString sout(out);
-	ui->base64->setPlainText(sout);
-}*/
-
 void MainWindow::dropEvent(QDropEvent *ev)
 {
 	const QMimeData *m = ev->mimeData();
@@ -75,4 +67,16 @@ void MainWindow::base64(QByteArray in, QString fn) {
 	b64+= ";base64,";
 	b64+= in.toBase64();
 	ui->base64->setPlainText(b64);
+}
+
+void MainWindow::on_btn_convert_clicked()
+{
+	QByteArray in = ui->base64_input->toPlainText().toLatin1();
+	b64_conv bx(in);
+	QPixmap img = bx.get_image();
+	if (img.isNull()) {
+		ui->base64_input->setPlainText("Wrong input");
+	} else {
+		ui->img_box->setPixmap(img);
+	}
 }
