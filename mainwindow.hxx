@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QFileDialog>
 
+#include "b64_encoder.hxx"
 #include "b64_conv.hxx"
 
 namespace Ui {
@@ -26,9 +27,11 @@ public:
 private slots:
 	void on_btn_open_clicked();
 	void on_btn_convert_clicked();
+	void set_converted_tbl(QString s);
 
 private:
 	Ui::MainWindow *ui;
+	b64_encoder b64_encoder_thred;
 
 protected:
 	void open(QString fn);

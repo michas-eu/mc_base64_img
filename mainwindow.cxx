@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
+	connect(&this->b64_encoder_thred,SIGNAL(result_ready(QString)),this,SLOT(set_converted_tbl(QString)));
 	ui->setupUi(this);
 	setAcceptDrops(true);
 }
@@ -54,19 +55,20 @@ void MainWindow::open(QString fn) {
 }
 
 void MainWindow::base64(QByteArray in, QString fn) {
-	QString b64("data:");
-	if (fn.endsWith(".jpeg") || fn.endsWith(".jpg")) {
-		b64+= "image/jpeg";
-	} else if (fn.endsWith(".png")) {
-		b64+= "image/png";
-	} else if (fn.endsWith(".gif")) {
-		b64+= "image/gif";
-	} else {
-		b64+= "application/octet-stream";
+	if (this->b64_encoder_thred.isRunning()) {
+		this->b64_encoder_thred.terminate();
 	}
-	b64+= ";base64,";
-	b64+= in.toBase64();
-	ui->base64->setPlainText(b64);
+	ui->base64->setPlainText("Working");
+	this->b64_encoder_thred.in = in;
+	this->b64_encoder_thred.fn = fn;
+	this->b64_encoder_thred.start();
+}
+
+void MainWindow::set_converted_tbl(QString s) {
+	if (s.size() > (1024 * 1024)) {
+		s = "Error";
+	}
+	ui->base64->setPlainText(s);
 }
 
 void MainWindow::on_btn_convert_clicked()

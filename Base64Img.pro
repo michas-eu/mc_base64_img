@@ -12,9 +12,11 @@ TEMPLATE = app
 
 SOURCES += main.cxx\
         mainwindow.cxx\
-        b64_conv.cxx
+        b64_conv.cxx \
+	b64_encoder.cxx
 
 HEADERS  += mainwindow.hxx\
-        b64_conv.hxx
+        b64_conv.hxx \
+	b64_encoder.hxx
 
 FORMS    += mainwindow.ui
