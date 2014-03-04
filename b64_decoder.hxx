@@ -16,6 +16,7 @@ protected:
 	enum filetype_e {
 		unknown,
 		jpeg,
+		jpeg_3_letters,
 		gif,
 		png
 	};

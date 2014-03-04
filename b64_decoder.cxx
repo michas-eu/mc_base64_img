@@ -10,6 +10,8 @@ void b64_decoder::run() {
 		this->filetype = this->png;
 	} else if (data.startsWith("data:image/gif")) {
 		this->filetype = this->gif;
+	} else if (data.startsWith("data:image/jpg")) {
+		this->filetype = this->jpeg_3_letters;
 	} else {
 		this->filetype = this->unknown;
 	}
