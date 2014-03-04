@@ -1,0 +1,2 @@
+This is simple file application to generate (and decode) base64 data URLs
+for images. It depends only on QT 5. Should works on all supported platforms.
