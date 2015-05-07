@@ -50,8 +50,15 @@ void MainWindow::open(QString fn) {
 	if (ctn.length()) {
 		ui->file_name->setText(fn);
 		this->base64(ctn, fn);
+		QPixmap img = QPixmap::fromImage(QImage::fromData(ctn));
+		if (img.isNull()) {
+			ui->img_box_encoding->setText("Error");
+		} else {
+			ui->img_box_encoding->setPixmap(img);
+		}
 	} else {
 		ui->file_name->setText("Error");
+		ui->img_box_encoding->setText("Error");
 	}
 }
 
@@ -77,7 +84,7 @@ void MainWindow::on_btn_convert_clicked()
 	if (this->b64_decoder_thred.isRunning()) {
 		this->b64_decoder_thred.terminate();
 	}
-	ui->img_box->setPixmap(QPixmap());
+	ui->img_box_decoding->setPixmap(QPixmap());
 	QString in = ui->base64_input->toPlainText();
 	this->b64_decoder_thred.input = in;
 	this->b64_decoder_thred.start();
@@ -88,6 +95,6 @@ void MainWindow::set_decoded_img(QPixmap img)
 	if (img.isNull()) {
 		ui->base64_input->setPlainText("Wrong input");
 	} else {
-		ui->img_box->setPixmap(img);
+		ui->img_box_decoding->setPixmap(img);
 	}
 }

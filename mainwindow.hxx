@@ -6,6 +6,8 @@
 #include <QUrl>
 #include <QFile>
 #include <QFileDialog>
+#include <QPixmap>
+#include <QImage>
 
 #include "b64_encoder.hxx"
 #include "b64_decoder.hxx"
