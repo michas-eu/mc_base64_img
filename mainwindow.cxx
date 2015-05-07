@@ -84,6 +84,7 @@ void MainWindow::on_btn_convert_clicked()
 	if (this->b64_decoder_thred.isRunning()) {
 		this->b64_decoder_thred.terminate();
 	}
+	ui->btn_save->setEnabled(false);
 	ui->img_box_decoding->setPixmap(QPixmap());
 	QString in = ui->base64_input->toPlainText();
 	this->b64_decoder_thred.input = in;
@@ -96,5 +97,16 @@ void MainWindow::set_decoded_img(QPixmap img)
 		ui->base64_input->setPlainText("Wrong input");
 	} else {
 		ui->img_box_decoding->setPixmap(img);
+		ui->btn_save->setEnabled(true);
+	}
+}
+
+void MainWindow::on_btn_save_clicked()
+{
+	QString fn = QFileDialog::getSaveFileName(this);
+	if (fn.length()) {
+		if (!ui->img_box_decoding->pixmap()->save(fn)){
+			QMessageBox::critical(this, "Error", "File not saved.");
+		}
 	}
 }

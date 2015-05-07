@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QPixmap>
 #include <QImage>
+#include <QMessageBox>
 
 #include "b64_encoder.hxx"
 #include "b64_decoder.hxx"
@@ -31,6 +32,7 @@ private slots:
 	void on_btn_convert_clicked();
 	void set_converted_tbl(QString s);
 	void set_decoded_img(QPixmap img);
+	void on_btn_save_clicked();
 
 private:
 	Ui::MainWindow *ui;
